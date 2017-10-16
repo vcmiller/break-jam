@@ -56,6 +56,18 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         box = GetComponent<BoxCollider2D>();
     }
 
+    public int queryMask {
+        get {
+            int qm = 0;
+            foreach (LayerMask lm in blockingLayers) {
+                qm |= lm.value;
+            }
+            return qm;
+        }
+    }
+
+    public bool enableAirControl { get; set; }
+
     public override void TakeInput() {
         bool collider = box.enabled;
         bool startIn = Physics2D.queriesStartInColliders;
@@ -64,10 +76,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         Physics2D.queriesHitTriggers = false;
         Physics2D.queriesStartInColliders = false;
 
-        int queryMask = 0;
-        foreach (LayerMask lm in blockingLayers) {
-            queryMask |= lm.value;
-        }
+        int qm = queryMask;
 
         Vector2 move = control.movement;
         move.y = 0;
@@ -76,7 +85,11 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         //if (body.isGrounded) {
         float accel = walkAcceleration;
         if (!grounded) {
-            accel *= airControl;
+            if (enableAirControl) {
+                accel *= airControl;
+            } else {
+                accel = 0;
+            }
         }
         velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
         velocity += Physics2D.gravity * gravityScale * Time.deltaTime;
@@ -96,7 +109,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         Vector2 moveDir = movement.normalized;
         float d = movement.magnitude;
 
-        if (d > 0 && (hit = Physics2D.BoxCast(center - moveDir * queryExtraDistance, size, angle, movement, d + queryExtraDistance, queryMask))) {
+        if (d > 0 && (hit = Physics2D.BoxCast(center - moveDir * queryExtraDistance, size, angle, movement, d + queryExtraDistance, qm))) {
             Vector2 norm = hit.normal;
             float slope = Vector2.Angle(hit.normal, transform.up);
 
@@ -116,7 +129,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
             bool step = false;
 
             if (!slopeOK) {
-                if (stepHit = Physics2D.BoxCast(center + stepTestOff, size, angle, -transform.up, stepHeight, queryMask)) {
+                if (stepHit = Physics2D.BoxCast(center + stepTestOff, size, angle, -transform.up, stepHeight, qm)) {
                     stepHeight -= stepHit.distance;
 
                     Vector2 stepHeightOff = (Vector2)transform.up * (stepHeight + queryExtraDistance) - moveDir * queryExtraDistance;
@@ -124,7 +137,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
                     if (stepHeight <= maxStep) {
                         slope = Vector2.Angle(stepHit.normal, transform.up);
  
-                        if (slope < maxSlope && !Physics2D.BoxCast(center + stepHeightOff, size, angle, movement, d + queryExtraDistance, queryMask)) {
+                        if (slope < maxSlope && !Physics2D.BoxCast(center + stepHeightOff, size, angle, movement, d + queryExtraDistance, qm)) {
                             step = true;
                             movement += (Vector2)transform.up * stepHeight;
                         }
@@ -153,7 +166,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         Vector2 dir = vert.normalized;
         grounded = false;
         
-        if (d > 0 && (hit = Physics2D.BoxCast(center - dir * queryExtraDistance, size, angle, vert, d + queryExtraDistance, queryMask))) {
+        if (d > 0 && (hit = Physics2D.BoxCast(center - dir * queryExtraDistance, size, angle, vert, d + queryExtraDistance, qm))) {
             Vector2 norm = hit.normal;
 
             float slope = Vector2.Angle(hit.normal, transform.up);
@@ -172,7 +185,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
             //comp.x = 0;
 
             if (velocity.y + comp.y > 0) {
-                comp.y = Mathf.Max(-velocity.y, 0);
+                //comp.y = Mathf.Max(-velocity.y, 0);
             }
 
             velocity += comp / Time.deltaTime;
