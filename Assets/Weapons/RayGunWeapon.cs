@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultWeapon : AWeapon {
+public class RayGunWeapon : AWeapon {
 	public LayerMask lm;
 	public override void activate(){
 		RaycastHit2D[] hitArr = Physics2D.RaycastAll (transform.position, Vector2.right, range, lm.value); //To be changed
@@ -11,6 +11,10 @@ public class DefaultWeapon : AWeapon {
 				var motor = hit.collider.GetComponent<CharacterMotor2D> ();
 				motor.velocity = Vector2.up * impactFactor + Vector2.right*impactFactor;
 			} 
+		}
+		numUse--;
+		if (numUse == 0) {
+			//destroy
 		}
 	}
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class AWeapon : MonoBehaviour {
 
-	float range; // how far the range of attack is
-	float impactFactor; //how much force will be applied to the enemy player 
-	int numUse; //how many times can use before it dissapears
+	public float range; // how far the range of attack is
+	public float impactFactor; //how much force will be applied to the enemy player 
+	public int numUse; //how many times can use before it dissapears
 
 	void Start () {
 		//Position randomly in the world
@@ -20,4 +20,11 @@ public abstract class AWeapon : MonoBehaviour {
 
 	public abstract void activate (); //Fire stufff
 
+
+	void OnTriggerEnter2D(Collider2D collider){
+		WeaponSlot curSlot = collider.GetComponent<WeaponSlot>();
+		curSlot.PickUp (this);
+		GetComponent<Collider2D> ().enabled = false;
+
+	}
 }

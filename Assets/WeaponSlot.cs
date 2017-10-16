@@ -19,7 +19,8 @@ public class WeaponSlot : MonoBehaviour {
 		}
 	}
 
-	void PickUp(AWeapon w){
+	public void PickUp(AWeapon w){
+		//Destroy (weapon.gameObject);
 		weapon = w;
 		w.transform.parent = transform;
 		w.transform.localPosition = Vector3.zero;
