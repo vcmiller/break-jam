@@ -497,7 +497,6 @@ GameObject:
   - component: {fileID: 234843161}
   - component: {fileID: 234843160}
   - component: {fileID: 234843166}
-  - component: {fileID: 234843167}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Untagged
@@ -628,20 +627,6 @@ MonoBehaviour:
   wallJumpSpeedX: 20
   wallJumpNoAirControlTime: 0.1
   stickTime: 0.1
---- !u!114 &234843167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 234843159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96ce41a5366406d4ebd16dde1b6f36fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultWeaponPF: {fileID: 1944732452429144, guid: 096539049d89c7c4eafbb3c94b4d7cdf,
-    type: 2}
-  weapon: {fileID: 0}
 --- !u!1 &312523510
 GameObject:
   m_ObjectHideFlags: 0
