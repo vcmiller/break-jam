@@ -20,4 +20,9 @@ public class SampleCharacterController2D : PlayerController<CharacterProxy> {
     public void ButtonUp_Jump() {
         controlled.jumpHeld = false;
     }
+
+	public void ButtonDown_Fire(){
+		controlled.attack = true;
+	}
+		
 }
