@@ -11,16 +11,17 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
     public float raycastDist = 0.1f;
 
     public float fallSpeedOnWall = 2.0f;
-    public float wallJumpSpeedX = 10;
+    public Vector2 wallJumpSpeed;
 
     public float wallJumpNoAirControlTime = 0.2f;
 
     public float stickTime = 0.2f;
 
-    private float inputDir;
-    private float lastWallDir;
-    private bool onWall;
-    private float stuckness = 0;
+    public float inputDir { get; private set; }
+    public float stuckness { get; private set; }
+    public float lastWallDir { get; private set; }
+    public bool onWall { get; private set; }
+    public bool jumped { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -30,6 +31,8 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
     }
 
     public override void TakeInput() {
+        jumped = false;
+
         if (control.movement.x != 0) {
             inputDir = Mathf.Sign(control.movement.x);
         } else {
@@ -39,8 +42,8 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
         if (control.jump && onWall) {
             onWall = false;
             stuckness = 0;
-            mainMotor.velocity = new Vector2(-lastWallDir * wallJumpSpeedX, mainMotor.jumpSpeed);
-
+            mainMotor.velocity = new Vector2(-lastWallDir * wallJumpSpeed.x, wallJumpSpeed.y);
+            jumped = true;
             Invoke("RestoreAC", wallJumpNoAirControlTime);
         }
     }

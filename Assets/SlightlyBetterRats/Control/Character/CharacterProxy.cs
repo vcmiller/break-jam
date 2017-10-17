@@ -7,6 +7,7 @@ public class CharacterProxy : BasicControlProxy {
         base.Awake();
 
         RegisterInputChannel("Jump", false, true);
+        RegisterInputChannel("JumpHeld", false, false);
     }
 
     public bool jump {
@@ -16,6 +17,16 @@ public class CharacterProxy : BasicControlProxy {
 
         set {
             SetBool("Jump", value);
+        }
+    }
+
+    public bool jumpHeld {
+        get {
+            return GetBool("JumpHeld");
+        }
+
+        set {
+            SetBool("JumpHeld", value);
         }
     }
 }

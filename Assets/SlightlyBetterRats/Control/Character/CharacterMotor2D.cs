@@ -12,6 +12,8 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     public BoxCollider2D box { get; private set; }
 
     public bool grounded { get; private set; }
+    public bool jumped { get; private set; }
+    public ExpirationTimer jumpHoldTimer { get; private set; }
 
     [HideInInspector]
     public Vector2 velocity;
@@ -43,6 +45,12 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     [Tooltip("The speed at which the character jumps.")]
     public float jumpSpeed = 4;
 
+    [Tooltip("Additional jump acceleration from holding button.")]
+    public float jumpHoldAccel = 2;
+
+    [Tooltip("Maximum time to apply additional acceleration.")]
+    public float jumpHoldTime = 0.5f;
+
     [Tooltip("The value to multiply Physics.Gravity by.")]
     public float gravityScale = 1;
 
@@ -54,6 +62,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         base.Awake();
 
         box = GetComponent<BoxCollider2D>();
+        jumpHoldTimer = new ExpirationTimer(jumpHoldTime);
     }
 
     public int queryMask {
@@ -69,6 +78,7 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
     public bool enableAirControl { get; set; }
 
     public override void TakeInput() {
+        jumped = false;
         bool collider = box.enabled;
         bool startIn = Physics2D.queriesStartInColliders;
         bool triggers = Physics2D.queriesHitTriggers;
@@ -96,6 +106,16 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
 
         if (grounded && control.jump) {
             velocity.y = jumpSpeed;
+            jumped = true;
+            jumpHoldTimer.Set();
+        }
+
+        if (!jumpHoldTimer.expired) {
+            if (control.jumpHeld) {
+                velocity.y += jumpHoldAccel * Time.deltaTime;
+            } else {
+                jumpHoldTimer.Clear();
+            }
         }
 
         RaycastHit2D hit;
