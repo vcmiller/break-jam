@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Menu.unity
+    guid: 1c127f6867eb52b469e7eb11a470a636
+  - enabled: 1
+    path: Assets/WarpCore.unity
+    guid: b9642ae4dd84cdc4cbbe69223111a763

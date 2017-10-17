@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Checkpoint
   - Spikes
+  - Goal
   layers:
   - Default
   - TransparentFX

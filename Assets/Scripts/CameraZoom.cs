@@ -10,15 +10,14 @@ public class CameraZoom : MonoBehaviour {
     public float moveSpeedCenter = 1;
     public float moveSpeedGrowth = 1;
 
+    private Vector3 position;
+
     public Camera camera { get; private set; }
 
 	// Use this for initialization
 	void Start () {
         camera = GetComponent<Camera>();
-
-        foreach (var j in Input.GetJoystickNames()) {
-            print(j);
-        }
+        position = transform.position;
 	}
 
     public Bounds bounds {
@@ -61,7 +60,11 @@ public class CameraZoom : MonoBehaviour {
 
 
         Vector3 v = b.center;
-        v.z = transform.position.z;
-        transform.position = Vector3.MoveTowards(transform.position, v, moveSpeedCenter + moveSpeedGrowth * Vector3.SqrMagnitude(transform.position - v) * Time.deltaTime);
+        v.z = position.z;
+        position = Vector3.MoveTowards(position, v, moveSpeedCenter + moveSpeedGrowth * Vector3.SqrMagnitude(position - v) * Time.deltaTime);
 	}
+
+    private void LateUpdate() {
+        transform.position = position;
+    }
 }

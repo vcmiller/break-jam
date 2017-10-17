@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     private Transform lastCheckpoint;
     private CharacterMotor2D motor;
     public float stunTime = 0.5f;
+    public bool isBlue;
 
 	// Use this for initialization
 	void Start () {
@@ -20,8 +21,10 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Checkpoint")) {
-            lastCheckpoint = collision.transform;
-        } else if (collision.CompareTag("Spikes")) {
+            if (!lastCheckpoint || lastCheckpoint.position.y < collision.transform.position.y) {
+                lastCheckpoint = collision.transform;
+            }
+        } else if (collision.CompareTag("Spikes") && lastCheckpoint) {
             transform.position = lastCheckpoint.position;
             motor.velocity = Vector3.zero;
             motor.enabled = false;
