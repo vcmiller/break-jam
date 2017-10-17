@@ -8,6 +8,7 @@ public class CharacterProxy : BasicControlProxy {
 
         RegisterInputChannel("Jump", false, true);
         RegisterInputChannel("JumpHeld", false, false);
+		RegisterInputChannel ("Attack", false, true);
     }
 
     public bool jump {
@@ -29,4 +30,14 @@ public class CharacterProxy : BasicControlProxy {
             SetBool("JumpHeld", value);
         }
     }
+
+	public bool attack{
+		get{
+			return GetBool ("Attack");
+		}
+
+		set{
+			SetBool ("Attack", value);
+		}
+	}
 }
