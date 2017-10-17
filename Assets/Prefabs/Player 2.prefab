@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 212034443281445070}
   - component: {fileID: 95044803452136756}
   - component: {fileID: 50564612627107306}
+  - component: {fileID: 114951147455424294}
   - component: {fileID: 114428395693519770}
   - component: {fileID: 114328007462894262}
   - component: {fileID: 114532606748759682}
@@ -189,6 +190,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSuffix: _2
   HUDPrefab: {fileID: 0}
+--- !u!114 &114951147455424294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1414514713194300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa44c8a076928d448c84712bfa96619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212034443281445070
 SpriteRenderer:
   m_ObjectHideFlags: 1
