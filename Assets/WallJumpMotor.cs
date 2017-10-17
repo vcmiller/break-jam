@@ -54,7 +54,7 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
 
         if (!wallJumpAccelTimer.expired) {
             if (control.jumpHeld) {
-
+                mainMotor.velocity += new Vector2(-lastWallDir * wallJumpAccel.x, wallJumpAccel.y) * Time.deltaTime;
             } else {
                 wallJumpAccelTimer.Clear();
             }
@@ -86,10 +86,20 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
         Vector3 size = box.size - new Vector2(raycastBack, raycastBack);
 
         if (!mainMotor.grounded) {
+            bool collider = box.enabled;
+            bool startIn = Physics2D.queriesStartInColliders;
+            bool triggers = Physics2D.queriesHitTriggers;
+
             box.enabled = false;
+            Physics2D.queriesHitTriggers = false;
+            Physics2D.queriesStartInColliders = false;
+
             bool wallLast = lastWallDir != 0 && Physics2D.BoxCast(box.transform.position, size, 0.0f, new Vector2(lastWallDir, 0), raycastBack + raycastDist, mainMotor.queryMask);
             bool wallCur = inputDir != 0 && Physics2D.BoxCast(box.transform.position, size, 0.0f, new Vector2(inputDir, 0), raycastBack + raycastDist, mainMotor.queryMask);
-            box.enabled = true;
+
+            box.enabled = collider;
+            Physics2D.queriesHitTriggers = triggers;
+            Physics2D.queriesStartInColliders = startIn;
 
             if (!onWall) {
                 if (wallCur) {

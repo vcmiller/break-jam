@@ -124,9 +124,9 @@ MonoBehaviour:
   raycastBack: 0.1
   raycastDist: 0.1
   fallSpeedOnWall: 5
-  wallJumpSpeed: {x: 13, y: 20}
-  wallJumpAccel: {x: 0, y: 0}
-  wallJumpAccelTime: 0
+  wallJumpSpeed: {x: 6, y: 8}
+  wallJumpAccel: {x: 80, y: 100}
+  wallJumpAccelTime: 0.15
   wallJumpNoAirControlTime: 0.1
   stickTime: 0.07
 --- !u!114 &114349263022220612
