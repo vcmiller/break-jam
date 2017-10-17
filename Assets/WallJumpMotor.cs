@@ -12,6 +12,8 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
 
     public float fallSpeedOnWall = 2.0f;
     public Vector2 wallJumpSpeed;
+    public Vector2 wallJumpAccel;
+    public float wallJumpAccelTime;
 
     public float wallJumpNoAirControlTime = 0.2f;
 
@@ -22,12 +24,14 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
     public float lastWallDir { get; private set; }
     public bool onWall { get; private set; }
     public bool jumped { get; private set; }
+    public ExpirationTimer wallJumpAccelTimer { get; private set; }
 
     protected override void Awake() {
         base.Awake();
 
         box = GetComponent<BoxCollider2D>();
         mainMotor = GetComponent<CharacterMotor2D>();
+        wallJumpAccelTimer = new ExpirationTimer(wallJumpAccelTime);
     }
 
     public override void TakeInput() {
@@ -45,6 +49,15 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
             mainMotor.velocity = new Vector2(-lastWallDir * wallJumpSpeed.x, wallJumpSpeed.y);
             jumped = true;
             Invoke("RestoreAC", wallJumpNoAirControlTime);
+            wallJumpAccelTimer.Set();
+        }
+
+        if (!wallJumpAccelTimer.expired) {
+            if (control.jumpHeld) {
+
+            } else {
+                wallJumpAccelTimer.Clear();
+            }
         }
     }
 
@@ -103,7 +116,7 @@ public class WallJumpMotor : BasicMotor<CharacterProxy> {
         }
         
         if (!onWall) {
-            lastWallDir = inputDir = 0;
+            inputDir = 0;
         }
         
         if (onWall && mainMotor.velocity.y <= -fallSpeedOnWall) {
