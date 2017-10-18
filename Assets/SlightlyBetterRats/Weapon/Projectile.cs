@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
     public float launchSpeed;
-    public float damage;
+    public float impactFactor;
     public bool hitsTriggers;
     public bool hitsIfNotFired;
-    public float linger = 0.5f;
-
+    public float linger;
+    Vector2 setDirection;
     public Vector3 velocity { get; set; }
     public bool fired { get; private set; }
 
@@ -16,26 +16,19 @@ public class Projectile : MonoBehaviour {
         Fire(transform.forward);
     }
 
-    public virtual void Fire(Vector3 direction) {
+    public virtual void Fire(Vector2 direction) {
+        setDirection = direction;
         velocity = direction.normalized * launchSpeed;
         fired = true;
     }
 
-	protected virtual void OnHitObject(Collider col, Vector3 position, Vector3 normal) {
+	protected virtual void OnHitObject(Collider2D col, Vector3 position, Vector3 normal) {
         if (fired || hitsIfNotFired) {
             if (hitsTriggers || !col.isTrigger) {
-                Health d = col.GetComponent<Health>();
-
-                if (!d) {
-                    d = col.GetComponentInParent<Health>();
-                }
-
-                if (d) {
-                    d.ApplyDamage(new Damage(damage, position, normal));
-                }
-
                 velocity = Vector3.zero;
-                Destroy(gameObject, linger);
+                var motor = col.GetComponent<CharacterMotor2D>();
+                motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
+                Destroy(gameObject);
             }
         }
     }

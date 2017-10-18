@@ -7,6 +7,7 @@ public abstract class AWeapon : MonoBehaviour {
 	public float range; // how far the range of attack is
 	public float impactFactor; //how much force will be applied to the enemy player 
 	public int numUse; //how many times can use before it dissapears
+    public int pose;
 	public LayerMask lm;
 	void Start () {
 		//Position randomly in the world
@@ -15,7 +16,12 @@ public abstract class AWeapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//maybe make the thing turn or light up
+        if (transform.parent && transform.GetComponent<SpriteRenderer>())
+        {
+        SpriteRenderer player =  transform.parent.GetComponent<SpriteRenderer>();
+        transform.localPosition = new Vector2(0, .3f) + 0.8f * GetDirection();
+        transform.GetComponent<SpriteRenderer>().flipX = player.flipX;
+        }
 	}
 
 	public abstract void activate (); //Fire stufff
@@ -24,7 +30,8 @@ public abstract class AWeapon : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider){
 		WeaponSlot curSlot = collider.GetComponent<WeaponSlot>();
 		Destroy(curSlot.weapon.gameObject);
-		curSlot.PickUp (this);
+        collider.GetComponent<Animator>().SetInteger("weaponPose", pose);
+        curSlot.PickUp (this);
 		GetComponent<Collider2D> ().enabled = false;
 	}
 

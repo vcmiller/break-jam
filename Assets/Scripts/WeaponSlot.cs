@@ -22,8 +22,10 @@ public class WeaponSlot : BasicMotor<CharacterProxy> {
 		//Destroy (weapon.gameObject); 
 		weapon = w;
 		w.transform.parent = transform;
-		w.transform.localPosition = Vector3.zero;
-	}
+        w.transform.localScale = new Vector3(0.04f, 0.04f);
+		
+
+    }
 
 	public void GetInitWeapon(){
 		GameObject temp;
