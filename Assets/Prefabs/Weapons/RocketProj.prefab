@@ -53,10 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchSpeed: 30
-  impactFactor: 20
+  impactFactor: 0
   hitsTriggers: 0
   hitsIfNotFired: 0
-  linger: 0
+  stunTime: 1
 --- !u!212 &212276560896532190
 SpriteRenderer:
   m_ObjectHideFlags: 1

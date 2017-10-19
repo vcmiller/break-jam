@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour {
     public float impactFactor;
     public bool hitsTriggers;
     public bool hitsIfNotFired;
-    public float linger;
+    public float stunTime = 1;
     Vector2 setDirection;
     public Vector3 velocity { get; set; }
     public bool fired { get; private set; }
@@ -26,9 +26,11 @@ public class Projectile : MonoBehaviour {
         if (fired || hitsIfNotFired) {
             if (hitsTriggers || !col.isTrigger) {
                 velocity = Vector3.zero;
-                var motor = col.GetComponent<CharacterMotor2D>();
-                if (motor) {
-                    motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
+
+                var player = col.GetComponent<Player>();
+                if (player && !player.stunned) {
+                    player.Stun(stunTime);
+                    player.motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
                 }
 
                 Destroy(gameObject);

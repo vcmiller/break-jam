@@ -87,21 +87,23 @@ public class CharacterMotor2D : BasicMotor<CharacterProxy> {
         Physics2D.queriesStartInColliders = false;
 
         int qm = queryMask;
-
-        Vector2 move = control.movement;
-        move.y = 0;
-        move *= walkSpeed;
-
-        //if (body.isGrounded) {
-        float accel = walkAcceleration;
-        if (!grounded) {
-            if (enableAirControl) {
-                accel *= airControl;
-            } else {
-                accel = 0;
+        
+        if (enableInput) {
+            Vector2 move = control.movement;
+            move.y = 0;
+            move *= walkSpeed;
+            float accel = walkAcceleration;
+            if (!grounded) {
+                if (enableAirControl) {
+                    accel *= airControl;
+                } else {
+                    accel = 0;
+                }
             }
+
+            velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
         }
-        velocity = Vector2.MoveTowards(velocity, new Vector2(move.x, velocity.y), accel * Time.deltaTime);
+        
         velocity += Physics2D.gravity * gravityScale * Time.deltaTime;
 
         if (grounded && control.jump) {

@@ -9,6 +9,8 @@ public abstract class AWeapon : MonoBehaviour {
 	public int numUse; //how many times can use before it dissapears
     public int pose;
 	public LayerMask lm;
+    public float stun = 0.5f;
+
 	void Start () {
 		//Position randomly in the world
 		//associate with an image
@@ -51,9 +53,12 @@ public abstract class AWeapon : MonoBehaviour {
 		RaycastHit2D[] hitArr = Physics2D.RaycastAll (transform.position, vector, range, lm.value); //To be changed
 		foreach (RaycastHit2D hit in hitArr) {
 			if (hit.transform != transform.root) {
-				var motor = hit.collider.GetComponent<CharacterMotor2D> ();
-				motor.velocity = Vector2.up * impactFactor + vector*impactFactor;
-			} 
+                var player = hit.collider.GetComponent<Player>();
+                if (player && !player.stunned) {
+                    player.motor.velocity = Vector2.up * impactFactor + vector * impactFactor;
+                    player.Stun(stun);
+                }
+			}
 		}
 	}
 
