@@ -27,6 +27,7 @@ public class AbilitySlot : BasicMotor<CharacterProxy> {
 
         ability = a;
         a.transform.parent = transform;
+        a.transform.localScale = Vector3.one;
     }
 
     public override void TakeInput() {
