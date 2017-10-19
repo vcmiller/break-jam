@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour {
 
     private ExpirationTimer killSpawned;
     private GameObject spawned;
+    private SpriteRenderer sprite;
 
     private Player[] players;
 
@@ -20,22 +21,46 @@ public class Spawner : MonoBehaviour {
 	void Start () {
         players = FindObjectsOfType<Player>();
         killSpawned = new ExpirationTimer(spawnLifetime);
+        sprite = GetComponent<SpriteRenderer>();
 	}
 
     private void Update() {
-        if (spawned.transform.parent) {
+        sprite.enabled = !spawned;
+
+        if (spawned && spawned.transform.parent) {
             spawned = null;
         }
 
         if (spawned && killSpawned.expired) {
             Destroy(spawned);
         }
+
+        if (spawned) {
+            spawned.transform.localScale = new Vector3(Mathf.Sin(Time.time * 4), 1, 1);
+        }
     }
 
-    private void OnTriggerStay2D(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.GetComponent<Player>()) {
+
             if (spawned == null && Random.value < chancePerSecond * Time.deltaTime) {
-                SpawnRandom(below);
+                Transform otherPlayer;
+
+                if (collision.transform == players[0].transform) {
+                    otherPlayer = players[1].transform;
+                } else {
+                    otherPlayer = players[0].transform;
+                }
+
+                if (otherPlayer.position.y > collision.transform.position.y + sameRange) {
+                    SpawnRandom(below);
+                } else if (otherPlayer.position.y < collision.transform.position.y - sameRange) {
+                    SpawnRandom(above);
+                } else {
+                    SpawnRandom(same);
+                }
+
+                
             }
         }
     }
