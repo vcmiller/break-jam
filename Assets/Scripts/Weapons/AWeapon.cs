@@ -18,9 +18,9 @@ public abstract class AWeapon : MonoBehaviour {
 	void Update () {
         if (transform.parent && transform.GetComponent<SpriteRenderer>())
         {
-        SpriteRenderer player =  transform.parent.GetComponent<SpriteRenderer>();
-        transform.localPosition = new Vector2(0, .3f) + 0.8f * GetDirection();
-        transform.GetComponent<SpriteRenderer>().flipX = player.flipX;
+            SpriteRenderer player =  transform.parent.GetComponent<SpriteRenderer>();
+            transform.localPosition = Vector2.zero;// new Vector2(0, .3f) + 0.8f * GetDirection();
+            transform.GetComponent<SpriteRenderer>().flipX = player.flipX;
         }
 	}
 
@@ -29,7 +29,9 @@ public abstract class AWeapon : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		WeaponSlot curSlot = collider.GetComponent<WeaponSlot>();
-		Destroy(curSlot.weapon.gameObject);
+        if (curSlot.weapon) {
+            Destroy(curSlot.weapon.gameObject);
+        }
         collider.GetComponent<Animator>().SetInteger("weaponPose", pose);
         curSlot.PickUp (this);
 		GetComponent<Collider2D> ().enabled = false;

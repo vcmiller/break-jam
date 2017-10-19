@@ -54,6 +54,7 @@ MonoBehaviour:
   range: 2
   impactFactor: 15
   numUse: -1
+  pose: 0
   lm:
     serializedVersion: 2
     m_Bits: 256

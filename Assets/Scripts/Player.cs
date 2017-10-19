@@ -21,9 +21,7 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Checkpoint")) {
-            if (!lastCheckpoint || lastCheckpoint.position.y < collision.transform.position.y) {
-                lastCheckpoint = collision.transform;
-            }
+            lastCheckpoint = collision.transform;
         } else if (collision.CompareTag("Spikes") && lastCheckpoint) {
             transform.position = lastCheckpoint.position;
             motor.velocity = Vector3.zero;

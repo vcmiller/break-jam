@@ -27,7 +27,10 @@ public class Projectile : MonoBehaviour {
             if (hitsTriggers || !col.isTrigger) {
                 velocity = Vector3.zero;
                 var motor = col.GetComponent<CharacterMotor2D>();
-                motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
+                if (motor) {
+                    motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
+                }
+
                 Destroy(gameObject);
             }
         }

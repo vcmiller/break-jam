@@ -5,6 +5,8 @@ using UnityEngine;
 public class WeaponSlot : BasicMotor<CharacterProxy> {
 
 	public GameObject defaultWeaponPF;
+
+    [HideInInspector]
 	public AWeapon weapon;
 	//Controller, Proxy, Motor
 	void Start () {
@@ -22,9 +24,6 @@ public class WeaponSlot : BasicMotor<CharacterProxy> {
 		//Destroy (weapon.gameObject); 
 		weapon = w;
 		w.transform.parent = transform;
-        w.transform.localScale = new Vector3(0.04f, 0.04f);
-		
-
     }
 
 	public void GetInitWeapon(){

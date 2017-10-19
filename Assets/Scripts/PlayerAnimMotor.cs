@@ -18,8 +18,8 @@ public class PlayerAnimMotor : BasicMotor<CharacterProxy> {
 
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        wallMotor = GetComponent<WallJumpMotor>();
-        motor = GetComponent<CharacterMotor2D>();
+        wallMotor = GetComponentInParent<WallJumpMotor>();
+        motor = GetComponentInParent<CharacterMotor2D>();
     }
 
     public override void TakeInput() {
