@@ -15,8 +15,9 @@ public class WeaponSlot : BasicMotor<CharacterProxy> {
 
 
 	public override void TakeInput (){
-		if(control.attack){
-			weapon.activate();		
+		if (weapon && control.attack) {
+			weapon.activate();
+            GetComponent<Player>().Freeze(weapon.selfFreeze);
 		}
 	}
 

@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 212213603736973568}
   - component: {fileID: 95844257954207554}
   - component: {fileID: 114498585763562012}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 20702724022898868}
   - component: {fileID: 124458712514805580}
   - component: {fileID: 114096719024274050}
+  - component: {fileID: 114930167868423036}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -144,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414514713194300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 105.01, z: 0}
+  m_LocalPosition: {x: -1, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4663142362058764}
@@ -476,6 +477,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114930167868423036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1857658572297104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2301a5be86c817e4fb783a0f26e3ac72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114951147455424294
 MonoBehaviour:
   m_ObjectHideFlags: 1

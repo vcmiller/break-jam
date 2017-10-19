@@ -27,8 +27,9 @@ public class Player : MonoBehaviour {
 	}
 
     private void Update() {
-        control.enabled = stunTimer.expired;
-        motor.enableInput = stunTimer.expired;
+        if (stunTimer.expired) {
+            ClearEffects();
+        }
     }
 
     // Update is called once per frame
@@ -48,10 +49,44 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void Stun(float duration) {
+    public void FreezeThenStun(float freeze, float stun) {
+
         if (!stunned) {
-            stunTimer.expiration = duration;
-            stunTimer.Set();
+            StartCoroutine(FreezeStunCoroutine(freeze, stun));
         }
+    }
+
+    IEnumerator FreezeStunCoroutine(float freeze, float stun) {
+        Freeze(freeze);
+        yield return new WaitForSeconds(freeze);
+        Stun(stun);
+    }
+
+    public void ClearEffects() {
+        stunTimer.Clear();
+
+        control.enabled = true;
+        motor.enableInput = true;
+        proxy.enabled = true;
+    }
+
+    public void Stun(float duration) {
+        ClearEffects();
+
+        stunTimer.expiration = duration;
+        stunTimer.Set();
+
+        control.enabled = false;
+        motor.enableInput = false;
+        
+    }
+
+    public void Freeze(float duration) {
+        ClearEffects();
+
+        stunTimer.expiration = duration;
+        stunTimer.Set();
+
+        proxy.enabled = false;
     }
 }

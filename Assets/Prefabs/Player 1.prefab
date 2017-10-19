@@ -66,8 +66,8 @@ GameObject:
   - component: {fileID: 4549676318817096}
   - component: {fileID: 20666766367577386}
   - component: {fileID: 124194500736535112}
-  - component: {fileID: 81501869563663976}
   - component: {fileID: 114026155099012560}
+  - component: {fileID: 114897865398764828}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 212698229736599876}
   - component: {fileID: 95552956246356748}
   - component: {fileID: 114265393809744060}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1613578963400788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 105.01, z: 0}
+  m_LocalPosition: {x: -8, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4549676318817096}
@@ -233,13 +233,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!81 &81501869563663976
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1795159327925504}
-  m_Enabled: 1
 --- !u!95 &95552956246356748
 Animator:
   serializedVersion: 3
@@ -497,6 +490,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: {fileID: 0}
   boots: {fileID: 212698229736599876}
+--- !u!114 &114897865398764828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795159327925504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2301a5be86c817e4fb783a0f26e3ac72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &124194500736535112
 Behaviour:
   m_ObjectHideFlags: 1

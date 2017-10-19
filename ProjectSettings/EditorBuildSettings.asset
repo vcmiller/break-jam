@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/WarpCore.unity
     guid: b9642ae4dd84cdc4cbbe69223111a763
+  - enabled: 1
+    path: Assets/LotsOItems.unity
+    guid: 2a0bd02a30f5b5044a712e524bfbcaef

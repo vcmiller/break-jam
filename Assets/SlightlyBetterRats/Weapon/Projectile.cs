@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour {
     public float impactFactor;
     public bool hitsTriggers;
     public bool hitsIfNotFired;
+    public float freezeTime = 0.25f;
     public float stunTime = 1;
     Vector2 setDirection;
     public Vector3 velocity { get; set; }
@@ -29,9 +30,11 @@ public class Projectile : MonoBehaviour {
 
                 var player = col.GetComponent<Player>();
                 if (player && !player.stunned) {
-                    player.Stun(stunTime);
+                    player.FreezeThenStun(freezeTime, stunTime);
                     player.motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
                 }
+
+                SendMessage("OnHit", SendMessageOptions.DontRequireReceiver);
 
                 Destroy(gameObject);
             }

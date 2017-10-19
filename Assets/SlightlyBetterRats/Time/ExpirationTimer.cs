@@ -7,7 +7,7 @@ public class ExpirationTimer {
 
 	public bool expired {
 		get {
-			return Time.time - lastSet > expiration;
+			return Time.time - lastSet >= expiration;
 		}
 	}
 

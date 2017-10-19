@@ -9,7 +9,13 @@ public abstract class AWeapon : MonoBehaviour {
 	public int numUse; //how many times can use before it dissapears
     public int pose;
 	public LayerMask lm;
+    public float freeze = 0.25f;
     public float stun = 0.5f;
+    public Vector3 shootOffset;
+
+    public GameObject explosionPrefab;
+
+    public float selfFreeze = 0.25f;
 
 	void Start () {
 		//Position randomly in the world
@@ -31,12 +37,14 @@ public abstract class AWeapon : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		WeaponSlot curSlot = collider.GetComponent<WeaponSlot>();
-        if (curSlot.weapon) {
-            Destroy(curSlot.weapon.gameObject);
+        if (curSlot) {
+            if (curSlot.weapon) {
+                Destroy(curSlot.weapon.gameObject);
+            }
+            collider.GetComponent<Animator>().SetInteger("weaponPose", pose);
+            curSlot.PickUp(this);
+            GetComponent<Collider2D>().enabled = false;
         }
-        collider.GetComponent<Animator>().SetInteger("weaponPose", pose);
-        curSlot.PickUp (this);
-		GetComponent<Collider2D> ().enabled = false;
 	}
 
 	public Vector2 GetDirection(){
@@ -50,13 +58,14 @@ public abstract class AWeapon : MonoBehaviour {
 
 	public void InstantHit(){
 		Vector2 vector = GetDirection(); 
-		RaycastHit2D[] hitArr = Physics2D.RaycastAll (transform.position, vector, range, lm.value); //To be changed
+		RaycastHit2D[] hitArr = Physics2D.RaycastAll (transform.position + shootOffset, vector, range, lm.value); //To be changed
 		foreach (RaycastHit2D hit in hitArr) {
 			if (hit.transform != transform.root) {
                 var player = hit.collider.GetComponent<Player>();
                 if (player && !player.stunned) {
                     player.motor.velocity = Vector2.up * impactFactor + vector * impactFactor;
-                    player.Stun(stun);
+                    player.FreezeThenStun(freeze, stun);
+                    Instantiate(explosionPrefab, hit.point, explosionPrefab.transform.rotation);
                 }
 			}
 		}

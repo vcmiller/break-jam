@@ -8,12 +8,21 @@ public abstract class AAbility : MonoBehaviour {
     
     public abstract void maybeActivate(CharacterProxy proxy);
     
-    void OnTriggerEnter2D(Collider2D collider) {
+    public virtual void OnTriggerEnter2D(Collider2D collider) {
         AbilitySlot curSlot = collider.GetComponent<AbilitySlot>();
-        curSlot.PickUp(this);
-        transform.localPosition = Vector2.zero;
-        GetComponent<Collider2D>().enabled = false;
-        GetComponent<SpriteRenderer>().enabled = false;
+        if (curSlot && !transform.parent) {
+            curSlot.PickUp(this);
+            transform.localPosition = Vector2.zero;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
+
+    public void CheckDestroy() {
+        numUse--;
+        if (numUse == 0) {
+            Destroy(gameObject);
+        }
     }
 
     public Vector2 GetDirection() {
@@ -22,13 +31,6 @@ public abstract class AAbility : MonoBehaviour {
             return Vector2.left;
         } else {
             return Vector2.right;
-        }
-    }
-
-    public void CheckDestroy() {
-        numUse--;
-        if (numUse == 0) {
-            Destroy(gameObject);
         }
     }
 }

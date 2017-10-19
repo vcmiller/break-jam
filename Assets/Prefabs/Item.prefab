@@ -79,15 +79,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   above:
-  - {fileID: 1968328730070790, guid: c4246331340f7d44994e780561e6901b, type: 2}
+  - {fileID: 1226747011904118, guid: 069bfed1dd29d1149ad9f51154015de3, type: 2}
+  - {fileID: 1697898664362610, guid: 8baba9cab256f9a45b07c897f338b1dc, type: 2}
   same:
   - {fileID: 1776933974270026, guid: b798237a4d7ddee49a0cab3ed5447923, type: 2}
   - {fileID: 1968328730070790, guid: c4246331340f7d44994e780561e6901b, type: 2}
+  - {fileID: 1697898664362610, guid: 741ef4c3c51eb5045be22f7e75da3d36, type: 2}
   below:
   - {fileID: 1558564079363848, guid: 7e075e97446a2a6469bf4a184df53e35, type: 2}
   - {fileID: 1697898664362610, guid: e097bbebdae7e9842b9e3e2269fe59d1, type: 2}
   sameRange: 3
-  spawnLifetime: 5
+  spawnLifetime: 10
   chancePerSecond: 0.5
 --- !u!212 &212073643582328934
 SpriteRenderer:

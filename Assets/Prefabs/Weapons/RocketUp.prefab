@@ -85,6 +85,7 @@ MonoBehaviour:
   lm:
     serializedVersion: 2
     m_Bits: 0
+  stun: 0.5
   projectile: {fileID: 1809435896891130, guid: af08d5e69870a2b4ba264d73ed9441f4, type: 2}
 --- !u!212 &212603434135228798
 SpriteRenderer:

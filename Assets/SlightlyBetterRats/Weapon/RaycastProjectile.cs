@@ -10,7 +10,6 @@ public class RaycastProjectile : Projectile {
         RaycastHit2D hit;
 
         if (hit = Physics2D.Linecast(oldPosition, transform.position)) {
-            print(hit.collider.name);
             OnHitObject(hit.collider, hit.point, hit.normal);
         }
     }

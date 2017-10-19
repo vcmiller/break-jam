@@ -85,6 +85,12 @@ MonoBehaviour:
   lm:
     serializedVersion: 2
     m_Bits: 256
+  freeze: 0.25
+  stun: 0.5
+  shootOffset: {x: 0, y: 0.3, z: 0}
+  explosionPrefab: {fileID: 1407037437970828, guid: 838d75a43e33bde4386ee0f07370ee05,
+    type: 2}
+  selfFreeze: 0.25
   preFab: {fileID: 1059400978293536, guid: e0c3864fa002693479990c0b57664586, type: 2}
 --- !u!212 &212510991300231664
 SpriteRenderer:
