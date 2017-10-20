@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour {
 	}
 
     private void Update() {
-        sprite.enabled = !spawned;
+        //sprite.enabled = !spawned;
 
         if (spawned && spawned.transform.parent) {
             spawned = null;
