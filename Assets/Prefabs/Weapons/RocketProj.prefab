@@ -98,9 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchSpeed: 30
-  impactFactor: 0
+  impactFactor: 15
   hitsTriggers: 0
   hitsIfNotFired: 0
+  freezeTime: 0.25
   stunTime: 1
 --- !u!198 &198168359093363294
 ParticleSystem:

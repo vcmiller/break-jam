@@ -10,7 +10,8 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void LoadRandomScene() {
-        int index = Random.Range(1, SceneManager.sceneCount);
+        print(SceneManager.sceneCountInBuildSettings);
+        int index = Random.Range(1, SceneManager.sceneCountInBuildSettings);
         SceneManager.LoadScene(index, LoadSceneMode.Single);
     }
     
