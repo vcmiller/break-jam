@@ -88,6 +88,11 @@ MonoBehaviour:
   below:
   - {fileID: 1558564079363848, guid: 7e075e97446a2a6469bf4a184df53e35, type: 2}
   - {fileID: 1697898664362610, guid: e097bbebdae7e9842b9e3e2269fe59d1, type: 2}
+  - {fileID: 1697898664362610, guid: e097bbebdae7e9842b9e3e2269fe59d1, type: 2}
+  - {fileID: 1697898664362610, guid: 741ef4c3c51eb5045be22f7e75da3d36, type: 2}
+  - {fileID: 1697898664362610, guid: 741ef4c3c51eb5045be22f7e75da3d36, type: 2}
+  - {fileID: 1558564079363848, guid: 7e075e97446a2a6469bf4a184df53e35, type: 2}
+  - {fileID: 1697898664362610, guid: e097bbebdae7e9842b9e3e2269fe59d1, type: 2}
   sameRange: 3
   spawnLifetime: 10
   chancePerSecond: 0.5
