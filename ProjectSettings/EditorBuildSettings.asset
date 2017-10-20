@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LotsOItems.unity
     guid: 2a0bd02a30f5b5044a712e524bfbcaef
+  - enabled: 1
+    path: Assets/Assembly.unity
+    guid: f8f5231933d916443bf20fb6ae2646a7
