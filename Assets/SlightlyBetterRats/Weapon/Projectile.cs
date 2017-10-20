@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour {
                 if (player && !player.stunned) {
                     player.FreezeThenStun(freezeTime, stunTime);
                     player.motor.velocity = Vector2.up * impactFactor + setDirection * impactFactor;
-                }
+                } 
 
                 SendMessage("OnHit", SendMessageOptions.DontRequireReceiver);
 
