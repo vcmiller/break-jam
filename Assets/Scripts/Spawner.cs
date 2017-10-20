@@ -10,10 +10,12 @@ public class Spawner : MonoBehaviour {
     public float sameRange = 3;
     public float spawnLifetime = 5;
     public float chancePerSecond = 0.5f;
+	public float coolDownTime = 1;
 
     private ExpirationTimer killSpawned;
     private GameObject spawned;
     private SpriteRenderer sprite;
+	private CooldownTimer cdT;
 
     private Player[] players;
 
@@ -22,6 +24,7 @@ public class Spawner : MonoBehaviour {
         players = FindObjectsOfType<Player>();
         killSpawned = new ExpirationTimer(spawnLifetime);
         sprite = GetComponent<SpriteRenderer>();
+		cdT = new CooldownTimer(coolDownTime);
 	}
 
     private void Update() {
@@ -43,7 +46,7 @@ public class Spawner : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.GetComponent<Player>()) {
 
-            if (spawned == null && Random.value < chancePerSecond * Time.deltaTime) {
+			if (spawned == null && Random.value < chancePerSecond * Time.deltaTime && cdT.Use()) {
                 Transform otherPlayer;
 
                 if (collision.transform == players[0].transform) {
